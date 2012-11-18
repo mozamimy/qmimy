@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* CSS Document */
+
+body
+{
+  width:320px;
+  height:240px;
+  background-image:url("../images/background.png");
+  background-repeat:no-repeat;
+  text-align:center;
+  margin-top:1px;
+  margin-left:-0px;
+}
+
+.imgBox
+{
+  text-align:center;
+  vertical-align:middle;
+  overflow:hidden;
+}
+
+.imgFrame
+{
+  margin-top:1px;
+  height:244px;
+  width:316px;
+  overflow:hidden;
+}
+
+.controlBar
+{
+  margin-top:-50px;
+}
+
+.previousButton
+{
+  position:absolute;
+  top:95px;
+  left:5px;
+}
+
+.centerButton
+{
+  position:absolute;
+  top:95px;
+  left:135px;
+}
+
+.nextButton
+{
+  position:absolute;
+  top:95px;
+  left:265px;
+}

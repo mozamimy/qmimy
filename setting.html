@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <link rel="stylesheet" href="css/setting.css" type="text/css" />
+  <script type="text/javascript" src="scripts/main.js"></script>
+  <script type="text/javascript" src="scripts/settings.js"></script>
+  <title>設定ウィンドウ</title>
+</head>
+<body onload="onShow();" onunload="onSettingClosed();">
+  <form name="settingForm">
+    URL1<br />
+    <input type="text" name="baseUrl1" class="textBox" /><br />
+    URL2<br />
+    <input type="text" name="baseUrl2" class="textBox" /><br />
+    URL3<br />
+    <input type="text" name="baseUrl3" class="textBox" /><br />
+    URL4<br />
+    <input type="text" name="baseUrl4" class="textBox" /><br />
+    URL5<br />
+    <input type="text" name="baseUrl5" class="textBox" /><br />
+    （使わないURL欄は空白にしてください）<br />
+    更新間隔(秒)<br />
+    <input type="text" name="intervalBox" class="textBox" /><br />
+    <input type="checkbox" name="isFade" />フェードイン<br />
+  </form>
+</body>
+</html>

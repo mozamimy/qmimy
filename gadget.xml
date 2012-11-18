@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<gadget>
+  <name>qMimy for Windows7</name>
+  <namespace>qMimy.gadget</namespace>
+  <version>1.1.0.0</version>
+  <author name="Moza USANE">
+    <info url="blog.quellencode.org" />
+    <logo src="logos/logo_64x64.png" />
+  </author>
+  <copyright>2011 Moza USANE (Mozamimy)</copyright>
+  <description>好みのTumblrに投稿された最新50件の画像をスライドショーするガジェット。</description>
+  <icons>
+    <icon height="64" width="64" src="logos/icon_64x64.png" />
+  </icons>
+  <hosts>
+    <host name="sidebar">
+      <base type="HTML" apiVersion="1.0.0" src="main.html" />
+      <permissions>Full</permissions>
+      <platform minPlatformVersion="1.0" />
+    </host>
+  </hosts>
+</gadget>

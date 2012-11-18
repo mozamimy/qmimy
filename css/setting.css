@@ -1,0 +1,13 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+body
+{
+  width: 240px;
+  height: 320px;
+}
+
+.textBox
+{
+  width: 200px;
+}

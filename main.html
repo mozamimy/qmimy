@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <link rel="stylesheet" href="css/main.css" type="text/css" />
+  <script type="text/javascript" src="scripts/jquery-1.6.min.js"></script>
+  <script type="text/javascript" src="scripts/main.js"></script>
+  <title>メインウィンドウ</title>
+</head>
+<body onload="view_onOpen();" onmouseover="view_onMouseOver();" onmouseout="view_onMouseOut();">
+<g:background id="slideshowBg" />
+  <div class="imgFrame">
+    <img src="images/Loading.png" height="236" alt="画像ビュー" name="imgBox" class="imgBox" onload="AppearImage()" />
+  </div>
+  <div class="previousButton">
+    <img src="images/previous_gray.png" height="50" width="50" alt="前の画像" name="previousButtonImage"
+      onmouseover="previous_onMouseOver();" onmouseout="previous_onMouseOut();" onmousedown="previous_onMouseDown();" onmouseup="previous_onMouseUp();" />
+  </div>
+  <div class="centerButton">
+    <img src="images/stop_gray.png" height="50" width="50" alt="再生コントロール" name="centerButtonImage"
+      onmouseover="center_onMouseOver();" onmouseout="center_onMouseOut();" onmousedown="center_onMouseDown();" onmouseup="center_onMouseUp();" />
+  </div>
+  <div class="nextButton">
+    <img src="images/next_gray.png" height="50" width="50" alt="次の画像" name="nextButtonImage"
+      onmouseover="next_onMouseOver();" onmouseout="next_onMouseOut();" onmousedown="next_onMouseDown();" onmouseup="next_onMouseUp();" />
+  </div>
+</body>
+</html>
