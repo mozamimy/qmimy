@@ -1,57 +1,30 @@
-/** URLの個数　!!!CONSTANT!!! */
 var URL_COUNT = 5;
 
-/** 画像のURL */
 var imageUrl = new Array();
 for (var i = 0; i < URL_COUNT; i++)
 {
   imageUrl.push(new Array());
 }
 
-/** TumblrのURL */
 var tumblrUrl = new Array();
 for (var i = 0; i < URL_COUNT; i++)
 {
   tumblrUrl.push("http://note.quellencode.org/");
 }
- 
-/** 画像URLのインデックス */
+
 var index = -1;
-
-/** TumblrURLのインデックス */
 var tumblrIndex = 0;
-
-/** スライドショータイマ */
 var timer;
-
-/** リトライタイマ */
 var retryTimer;
-
-/** フェードのインターバル */
 var fadeInterval = 1200;
-
-/** フェードを使用するか？ */
 var isUseFade = true;
-
-/** XMLをロードしたか？ */
 var isLoadedXml = false;
-
-/** 表示間隔 */
 var interval = 10;
-
-/** マウスが載っているか？ */
 var mouseState = false;
-
-/** 表示方式 */
 var showStatus = false;
 
-/* ガジェットのHTML */
 System.Gadget.settingsUI = "setting.html";
 
-/**
- * ガジェットがロードされたときの処理（ほぼプログラム本体）
- * @author Moza USANE
- */
 function view_onOpen()
 {
   System.Debug.outputString(tumblrUrl[0]);
@@ -59,10 +32,8 @@ function view_onOpen()
   document.imgBox.src = "images/connection_error.png";
   HideControls();
 
-  /* 設定を読み込む */
   ReadSettings();
 
-  /* 変数の初期化 */
   System.Debug.outputString("Init variables");
   clearTimeout(retryTimer);
   clearInterval(timer);
@@ -75,15 +46,14 @@ function view_onOpen()
   {
     var imageCache = new Array();
     System.Debug.outputString("peropero");
-    
+
     try
     {
-      /* TumblrのXMLをとってくる */
       httpClient = new XMLHttpRequest();
       httpClient.open("GET", tumblrUrl[l] + "api/read?type=photo&num=50", false);
       httpClient.setRequestHeader("If-Modified-Since", "Thu, 01 Jun 1970 00:00:00 GMT");
       httpClient.send(null);
-      
+
       if (httpClient.status == 200)
       {
         var domRoot = httpClient.responseXML;
@@ -111,7 +81,7 @@ function view_onOpen()
             }
           }
         }
-        
+
         showStatus = true;
         timer = setInterval(RefreshImage, parseInt(interval) * 1000);
         isLoadedXml = true;
@@ -122,7 +92,7 @@ function view_onOpen()
         document.imgBox.src = "images/connection_error.gif";
         retryTimer = setTimeout(view_onOpen, 5000);
       }
-    } 
+    }
     catch (e)
     {
       document.imgBox.src = "images/connection_error.gif";
@@ -131,14 +101,12 @@ function view_onOpen()
   }
 }
 
-/** 設定の読み込み */
 function ReadSettings()
 {
   System.Debug.outputString("ReadSettings()");
   if (System.Gadget.Settings.readString("interval") != "")
   {
     System.Debug.outputString("ReadSettings(): Datas exist");
-    /* 既に保存データがある場合 */
     tumblrUrl[0] = System.Gadget.Settings.readString("url1");
     tumblrUrl[1] = System.Gadget.Settings.readString("url2");
     tumblrUrl[2] = System.Gadget.Settings.readString("url3");
@@ -149,7 +117,6 @@ function ReadSettings()
   }
   else
   {
-    /* 保存データがない場合 */
     System.Debug.outputString("ReadSettings(): Datas not exist");
     System.Gadget.Settings.writeString("url1", tumblrUrl[0]);
     System.Gadget.Settings.writeString("url2", tumblrUrl[1]);
@@ -159,11 +126,10 @@ function ReadSettings()
     System.Gadget.Settings.writeString("interval", interval);
     System.Gadget.Settings.write("isUseFade", isUseFade);
   }
-  
+
   _debug_showUrl();
 }
 
-/** デバッグ用にURLを表示する */
 function _debug_showUrl()
 {
   System.Debug.outputString("URL");
@@ -174,7 +140,6 @@ function _debug_showUrl()
   System.Debug.outputString(System.Gadget.Settings.readString("url5"));
 }
 
-/** コントロールボタンを隠す */
 function HideControls()
 {
   $(".previousButton").hide();
@@ -182,7 +147,6 @@ function HideControls()
   $(".nextButton").hide();
 }
 
-/* コントロールボタンを表示する */
 function ShowControls()
 {
   $(".previousButton").show();
@@ -190,7 +154,6 @@ function ShowControls()
   $(".nextButton").show();
 }
 
-/** タイマーをセットする */
 function SetTimer()
 {
   if (timer != null)
@@ -199,7 +162,6 @@ function SetTimer()
   }
 }
 
-/** 画像を更新する */
 function RefreshImage()
 {
   imgBox.onload = AppearImage;
@@ -207,7 +169,6 @@ function RefreshImage()
   ChangeImage();
 }
 
-/** 画像を変更する */
 function ChangeImage()
 {
   if (index > 49)
@@ -218,17 +179,16 @@ function ChangeImage()
   {
     index = 49;
   }
-  
+
   clearInterval(timer);
   $(".imgBox").hide();
   document.imgBox.src = imageUrl[index];
 }
 
-/** イメージを表示する */
 function AppearImage()
 {
   imgBox.onload = null;
-  
+
   if (isUseFade)
   {
     $(".imgBox").fadeIn(fadeInterval);
@@ -237,7 +197,7 @@ function AppearImage()
   {
    $(".imgBox").show();
   }
-  
+
   if (showStatus)
   {
     SetTimer();
@@ -246,7 +206,6 @@ function AppearImage()
 }
 
 
-/** スライドショーのオンオフ */
 function ToggleViewState()
 {
   if (showStatus)
@@ -263,29 +222,26 @@ function ToggleViewState()
   }
 }
 
-/** 前の画像を表示する */
 function ShowPreviousImage()
 {
   index--;
-  
+
   temp = isUseFade;
   isUseFade = false;
   ChangeImage();
   isUseFade = temp;
 }
 
-/** 次の画像を表示する */
 function ShowNextImage()
 {
   index++;
-  
+
   temp = isUseFade;
   isUseFade = false;
   ChangeImage();
   isUseFade = temp;
 }
 
-/** スライドショーを止める */
 function StopSlideShow()
 {
   if (showStatus)
@@ -296,37 +252,31 @@ function StopSlideShow()
   }
 }
 
-/** オプションが変更されたとき */
 function view_onOptionChanged()
 {
-	tumblrUrl = options("TumblrURL");
-	interval = options("interval");
-	
-	clearInterval(timer);
-	view_onOpen();
+  tumblrUrl = options("TumblrURL");
+  interval = options("interval");
+
+  clearInterval(timer);
+  view_onOpen();
 }
 
-/** マウスオーバーされたとき */
 function view_onMouseOver()
 {
-  /* XMLが読み込まれていればコントロールボタンを表示 */
   if (isLoadedXml)
   {
     ShowControls();
   }
 }
 
-/** マウスが離れたとき */
 function view_onMouseOut()
 {
-  /* XMLがロードされているならコントロールボタンを隠す */
   if (isLoadedXml)
   {
    HideControls();
   }
 }
 
-/** コントロールボタンにマウスオーバーしたとき */
 function previous_onMouseOver()
 {
   document.previousButtonImage.src = "images/previous_white.png";
@@ -347,13 +297,12 @@ function previous_onMouseDown()
 function previous_onMouseUp()
 {
   document.previousButtonImage.style.zoom = "100%";
-  
+
   StopSlideShow();
   imgBox.onload = AppearImage;
   ShowPreviousImage();
 }
 
-/** 真ん中のボタンにマウスオーバーしたとき */
 function center_onMouseOver()
 {
   if (showStatus)
@@ -391,7 +340,6 @@ function center_onMouseUp()
   document.centerButtonImage.style.zoom = "100%";
 }
 
-/** 次に進むボタンにマウスオーバーしたとき */
 function next_onMouseOver()
 {
   document.nextButtonImage.src = "images/next_white.png";
@@ -412,20 +360,17 @@ function next_onMouseDown()
 function next_onMouseUp()
 {
   document.nextButtonImage.style.zoom = "100%";
-  
-  /* スライドショーを止める */
+
   StopSlideShow();
   imgBox.onload = AppearImage;
   ShowNextImage();
 }
 
-/** 設定画面が閉じられたとき*/
 System.Gadget.onSettingsClosed = onSettingsClosed;
 function onSettingsClosed(e)
 {
   if (e.closeAction == e.Action.commit)
   {
-    /* 設定データをセットする */
     tumblrUrl[0] = System.Gadget.Settings.readString("url1");
     tumblrUrl[1] = System.Gadget.Settings.readString("url2");
     tumblrUrl[2] = System.Gadget.Settings.readString("url3");
@@ -433,7 +378,7 @@ function onSettingsClosed(e)
     tumblrUrl[4] = System.Gadget.Settings.readString("url5");
     interval = parseInt(System.Gadget.Settings.readString("interval"));
     isUseFade = System.Gadget.Settings.read("isUseFade");
-    
+
     /* Debug */
     System.Debug.outputString("設定画面が閉じられました");
     System.Debug.outputString(System.Gadget.Settings.readString("url1");
@@ -442,12 +387,11 @@ function onSettingsClosed(e)
     System.Debug.outputString(System.Gadget.Settings.readString("url4");
     System.Debug.outputString(System.Gadget.Settings.readString("url5");
   }
-  
+
   StopSlideShow();
   view_onOpen();
 }
 
-/** ガジェットが開かれたとき */
 System.Gadget.onShowSettings = onShow;
 function onShow()
 {
